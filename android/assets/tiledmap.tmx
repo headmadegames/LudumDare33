@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="23">
+ <tileset firstgid="1" name="ld33" tilewidth="1" tileheight="1" tilecount="0"/>
+ <tileset firstgid="1" name="pack2" tilewidth="32" tileheight="32" tilecount="8">
+  <image source="packs/pack2.png" width="128" height="64"/>
+ </tileset>
+ <layer name="spriteLayer" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="objectLayer">
+  <object id="1" name="wheel" type="object" x="2656" y="1945" width="100" height="100">
+   <properties>
+    <property name="bodyType" value="DynamicBody"/>
+    <property name="density" value="2"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="6" name="torso" type="object" x="2654" y="1791.39">
+   <properties>
+    <property name="bodyType" value="DynamicBody"/>
+    <property name="density" value="2"/>
+   </properties>
+   <polygon points="-12,150.5 116.968,145.112 98.2979,54.8571 105,-20.2449 64.3404,-52.2449 -14.0745,13.6122"/>
+  </object>
+  <object id="8" name="joint" type="joint" x="2706" y="1852" width="2" height="5">
+   <properties>
+    <property name="bodyA" value="torso"/>
+    <property name="bodyB" value="wheel"/>
+    <property name="jointType" value="DistanceJoint"/>
+    <property name="length" value="5"/>
+    <property name="localAnchorAX" value="2.5"/>
+    <property name="localAnchorAY" value="5"/>
+    <property name="localAnchorBX" value="1.5"/>
+    <property name="localAnchorBY" value="1.5"/>
+   </properties>
+   <polyline points="0,0 0,140"/>
+  </object>
+  <object id="10" name="floor" type="object" x="-644" y="3192" width="3892" height="208"/>
+  <object id="14" name="head" type="object" x="2766" y="1644" width="126" height="126">
+   <properties>
+    <property name="bodyType" value="DynamicBody"/>
+    <property name="density" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="18" name="joint" x="2819.73" y="1816.67" rotation="-40.3945">
+   <properties>
+    <property name="bodyA" value="torso"/>
+    <property name="bodyB" value="head"/>
+    <property name="dampingRatio" value="0.7"/>
+    <property name="frequencyHz" value="4"/>
+    <property name="jointType" value="WeldJoint"/>
+    <property name="localAnchorAX" value="2"/>
+    <property name="localAnchorAY" value="2"/>
+    <property name="localAnchorBX" value="2"/>
+    <property name="localAnchorBY" value="2"/>
+    <property name="referenceAngle" value="0"/>
+   </properties>
+   <polyline points="0,0 -24,28"/>
+  </object>
+  <object id="19" name="tail" type="object" x="2524" y="1832">
+   <properties>
+    <property name="bodyType" value="DynamicBody"/>
+    <property name="density" value="1"/>
+   </properties>
+   <polygon points="-139,90 39.4681,74.612 98.2979,54.8571 105,-20.2449 36.3404,23.7551 -58.5745,58.6122"/>
+  </object>
+  <object id="20" name="joint" x="2692" y="1806">
+   <properties>
+    <property name="bodyA" value="torso"/>
+    <property name="bodyB" value="tail"/>
+    <property name="jointType" value="WeldJoint"/>
+    <property name="localAnchorAX" value="1.5"/>
+    <property name="localAnchorAY" value="1"/>
+    <property name="localAnchorBX" value="1.5"/>
+    <property name="localAnchorBY" value="1.5"/>
+    <property name="referenceAngle" value="225"/>
+   </properties>
+   <polyline points="0,0 -112,70"/>
+  </object>
+  <object id="21" name="joint" type="joint" x="2709.33" y="1661.33">
+   <properties>
+    <property name="bodyA" value="torso"/>
+    <property name="bodyB" value="head"/>
+    <property name="jointType" value="WeldJoint"/>
+    <property name="localAnchorAX" value="2.5"/>
+    <property name="localAnchorAY" value="2"/>
+    <property name="localAnchorBX" value="0.5"/>
+    <property name="localAnchorBY" value="0.5"/>
+    <property name="referenceAngle" value="0"/>
+   </properties>
+   <polyline points="18.6667,130.667 125.333,37.3333"/>
+  </object>
+ </objectgroup>
+</map>
