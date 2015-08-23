@@ -13,6 +13,11 @@ public class AssetTextures {
 	public static final String	WHEEEL		= "wheel";
 	public static final String	TENT		= "tent";
 	public static final String	TENTFLOOR	= "tent_floor";
+	public static final String	TOMATO		= "tomato";
+	public static final String	BIKE		= "bike";
+	public static final String	MONSTER		= "monster";
+	public static final String	BOARD		= "board";
+	public static final String	ROCKER		= "rocker";
 
 	//	@formatter:off
 	//	@Asset(NinePatch.class)
@@ -32,4 +37,7 @@ public class AssetTextures {
 	@Asset(value = Skin.class, params = "skinParameter")
 	public static final String
 	skin = Assets.PACKS_BASE + Assets.PACK + ".json";
+
+
+
 }

@@ -31,6 +31,9 @@ public class Assets implements Disposable, AssetErrorListener {
 	public TextureAtlas	atlas;	// Don't make this static!!!
 	public Skin			skin;
 
+	public Sound	bikeSound;
+	public long		bikeSoundId;
+
 	// singleton: prevent instantiation from other classes
 	private Assets() {
 		assetsManager = new AnnotationAssetManager();
@@ -76,18 +79,30 @@ public class Assets implements Disposable, AssetErrorListener {
 		assetsManager.load(AssetSounds.class);
 		assetsManager.load(AssetMusic.class);
 		assetsManager.load(AssetTextures.class);
+		// assetsManager.load(AssetParticles.class);
 	}
 
 	public void onFinishLoading() {
 		atlas = assetsManager.get(GAME_ATLAS, TextureAtlas.class);
 		skin = assetsManager.get(AssetTextures.skin, Skin.class);
+		bikeSound = assetsManager.get(AssetSounds.bike, Sound.class);
+		bikeSoundId = bikeSound.loop(0f);
 		setTextureFilter(atlas, TextureFilter.Nearest);
 	}
 
 	public void playSound(String name) {
+		playSound(name, 1f);
+	}
+
+	public void playSound(String name, float volume) {
+		playSound(name, volume, 1f);
+	}
+
+	public void playSound(String name, float volume, float pitch) {
+		Gdx.app.log(TAG, "Playing sound " + name + "with valume " + volume);
 		final Sound sound = assetsManager.get(name, Sound.class);
 		if (sound != null) {
-			sound.play();
+			sound.play(volume * 0.5f, pitch, 0);
 		} else {
 			Gdx.app.error(TAG, "No Sound with name " + name);
 		}

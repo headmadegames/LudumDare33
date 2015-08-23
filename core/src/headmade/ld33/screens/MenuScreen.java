@@ -1,6 +1,6 @@
 package headmade.ld33.screens;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -13,13 +13,17 @@ import headmade.ld33.actors.CreditsActor;
 import headmade.ld33.actors.HowToActor;
 import headmade.ld33.actors.JigglyImageTextButton;
 import headmade.ld33.actors.SettingsActor;
+import headmade.ld33.assets.AssetMusic;
 import headmade.ld33.assets.Assets;
+import headmade.ld33.screens.transitions.ScreenTransition;
+import headmade.ld33.screens.transitions.ScreenTransitionFade;
 
 public class MenuScreen extends StageScreen {
 	private static final String	TAG	= MenuScreen.class.getName();
 	private final SettingsActor	settings;
 	private final CreditsActor	credits;
 	private final HowToActor	howTo;
+	private final Music			music;
 
 	public MenuScreen(DirectedGame game) {
 		super(game);
@@ -46,7 +50,12 @@ public class MenuScreen extends StageScreen {
 
 		this.stage.addActor(rootTable);
 
-		// ((OrthographicCamera) stage.getCamera()).zoom = 2f;
+		// ((OrthographicCamera) stage.getCamera()).zoom = 0.5f;
+
+		music = Assets.instance.assetsManager.get(AssetMusic.music, Music.class);
+		music.setVolume(0.5f);
+		music.play();
+		music.setLooping(true);
 	}
 
 	@Override
@@ -62,34 +71,22 @@ public class MenuScreen extends StageScreen {
 		playButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				showPlaySettings();
+				play();
 				return true;
 			}
 		});
 
-		final JigglyImageTextButton settingsButton = new JigglyImageTextButton("Settings", Assets.instance.skin, "settings", null);
+		final JigglyImageTextButton settingsButton = new JigglyImageTextButton("Mute music", Assets.instance.skin, "settings", null);
 		settingsButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				showSettings();
-				return true;
-			}
-		});
-
-		final JigglyImageTextButton creditsButton = new JigglyImageTextButton("Credits", Assets.instance.skin, "credits", null);
-		creditsButton.addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				showCredits();
-				return true;
-			}
-		});
-
-		final JigglyImageTextButton quitButton = new JigglyImageTextButton("Quit", Assets.instance.skin, "quit", null);
-		quitButton.addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				Gdx.app.exit();
+				if (music.isPlaying()) {
+					music.pause();
+					settingsButton.setText("Unmute music");
+				} else {
+					music.play();
+					settingsButton.setText("Mute music");
+				}
 				return true;
 			}
 		});
@@ -97,20 +94,18 @@ public class MenuScreen extends StageScreen {
 		final Table menu = new Table();
 		menu.add(playButton).fill().row();
 		menu.add(settingsButton).fill().space(5).row();
-		menu.add(creditsButton).fill().space(5).row();
-		menu.add(quitButton).fill().space(15).row();
 		return menu;
+	}
+
+	protected void play() {
+		final ScreenTransition transition = ScreenTransitionFade.init(0.5f);
+		// game.setScreen(new MenuScreen(game), transition);
+		game.setScreen(new PlayScreen(game), transition);
 	}
 
 	protected void showCredits() {
 		credits.addAction(Actions.fadeIn(0.3f));
 		howTo.addAction(Actions.fadeOut(0.3f));
-		settings.addAction(Actions.fadeOut(0.3f));
-	}
-
-	protected void showPlaySettings() {
-		howTo.addAction(Actions.fadeIn(0.3f));
-		credits.addAction(Actions.fadeOut(0.3f));
 		settings.addAction(Actions.fadeOut(0.3f));
 	}
 

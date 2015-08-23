@@ -8,7 +8,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
 import headmade.ld33.assets.Assets;
 
 public class Ld33Launcher {
-	private static boolean	rebuildAtlas		= true;
+	private static boolean	rebuildAtlas		= false;
 	// private static boolean rebuildAtlas = false;
 	private static boolean	drawDebugOutline	= false;
 

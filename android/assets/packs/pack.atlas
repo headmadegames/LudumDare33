@@ -1,61 +1,138 @@
 
 pack.png
-size: 256,128
+size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 banner1
   rotate: false
-  xy: 195, 62
+  xy: 365, 46
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 banner2
   rotate: false
-  xy: 161, 28
+  xy: 346, 46
   size: 17, 32
   orig: 17, 32
   offset: 0, 0
   index: -1
+bike
+  rotate: false
+  xy: 225, 49
+  size: 51, 63
+  orig: 51, 63
+  offset: 0, 0
+  index: -1
+board
+  rotate: false
+  xy: 59, 13
+  size: 2, 5
+  orig: 2, 5
+  offset: 0, 0
+  index: -1
 headmade_small
   rotate: false
-  xy: 2, 2
+  xy: 2, 20
   size: 89, 92
   orig: 89, 92
   offset: 0, 0
   index: -1
 howto
   rotate: false
-  xy: 93, 62
+  xy: 278, 80
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+monster
+  rotate: false
+  xy: 93, 48
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 play
   rotate: false
-  xy: 93, 28
+  xy: 312, 80
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+quit
+  rotate: false
+  xy: 312, 80
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+rocker
+  rotate: false
+  xy: 346, 80
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+settings
+  rotate: false
+  xy: 380, 80
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+smoke
+  rotate: false
+  xy: 159, 48
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+splatter
+  rotate: false
+  xy: 414, 80
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 tent
   rotate: false
-  xy: 127, 62
-  size: 32, 32
-  orig: 32, 32
+  xy: 2, 2
+  size: 2, 7
+  orig: 2, 7
   offset: 0, 0
   index: -1
 tent_floor
   rotate: false
-  xy: 127, 28
+  xy: 2, 11
+  size: 55, 7
+  orig: 55, 7
+  offset: 0, 0
+  index: -1
+tent_floor_large
+  rotate: false
+  xy: 448, 80
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+tent_large
+  rotate: false
+  xy: 278, 46
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+tomato
+  rotate: false
+  xy: 482, 87
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
 wheel
   rotate: false
-  xy: 161, 62
+  xy: 312, 46
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

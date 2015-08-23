@@ -66,5 +66,65 @@ com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 		label: { font: default-font, fontColor: white },
 		background: ui/default-pane
 	}
+},
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: default-font,
+		fontColor: white,
+		downFontColor: red,
+		overFontColor: red,
+		disabledFontColor: black,
+		up: ui/default-round,
+		down: ui/default-round-down,
+		over: ui/default-round,
+		checked: ui/default-round,
+		checkedOver: ui/default-round,
+		disabled: ui/default-round
+	}
+	play: {
+		font: default-font,
+		fontColor: white,
+		downFontColor: red,
+		overFontColor: red,
+		disabledFontColor: black,
+		up: ui/default-round,
+		down: ui/default-round-down,
+		over: ui/default-round,
+		checked: ui/default-round,
+		checkedOver: ui/default-round,
+		disabled: ui/default-round,
+		imageUp: play,
+		imageOver: play
+	}
+	quit: {
+		font: default-font,
+		fontColor: white,
+		downFontColor: red,
+		overFontColor: red,
+		disabledFontColor: black,
+		up: ui/default-round,
+		down: ui/default-round-down,
+		over: ui/default-round,
+		checked: ui/default-round,
+		checkedOver: ui/default-round,
+		disabled: ui/default-round,
+		imageUp: quit,
+		imageOver: quit
+	}
+	settings: {
+		font: default-font,
+		fontColor: white,
+		downFontColor: red,
+		overFontColor: red,
+		disabledFontColor: black,
+		up: ui/default-round,
+		down: ui/default-round-down,
+		over: ui/default-round,
+		checked: ui/default-round,
+		checkedOver: ui/default-round,
+		disabled: ui/default-round,
+		imageUp: settings,
+		imageOver: settings
+	}
 }
 }

@@ -80,7 +80,7 @@ public class IntroScreen extends StageScreen {
 		Gdx.app.log(TAG, "Start Button clicked");
 
 		final ScreenTransition transition = ScreenTransitionFade.init(0.0f);
-		// game.setScreen(new MenuScreen(game), transition);
-		game.setScreen(new PlayScreen(game), transition);
+		game.setScreen(new MenuScreen(game), transition);
+		// game.setScreen(new PlayScreen(game), transition);
 	}
 }

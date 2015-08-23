@@ -7,7 +7,14 @@ public class HowToActor extends BaseMenuContainer {
 
 	public HowToActor() {
 		this.setSkin(Assets.instance.skin);
-		add("Controls:").row();
-		add("Cursor Keys").row();
+		add("Controls:").colspan(2).row();
+		add("W / Up");
+		add("Jump").row();
+
+		add("A / Left");
+		add("Cycle left").row();
+
+		add("D / Right");
+		add("Cycle right").row();
 	}
 }
