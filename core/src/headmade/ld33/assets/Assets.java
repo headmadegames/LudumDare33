@@ -1,9 +1,12 @@
 package headmade.ld33.assets;
 
+import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -11,9 +14,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
-import com.kotcrab.vis.ui.VisUI;
-
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
+//import com.kotcrab.vis.ui.VisUI;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
 
 public class Assets implements Disposable, AssetErrorListener {
 
@@ -45,7 +47,7 @@ public class Assets implements Disposable, AssetErrorListener {
 	public void dispose() {
 		Gdx.app.debug(TAG, "Disposing assets...");
 		assetsManager.dispose();
-		VisUI.dispose();
+//		VisUI.dispose();
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class Assets implements Disposable, AssetErrorListener {
 
 		assetsManager.load(HEADMADE_LOGO, Texture.class);
 
-		VisUI.load();
+//		VisUI.load();
 
 		assetsManager.finishLoading();
 
@@ -76,10 +78,20 @@ public class Assets implements Disposable, AssetErrorListener {
 	public void loadAll() {
 		Gdx.app.debug(TAG, "Init assets...");
 
-		assetsManager.load(AssetSounds.class);
-		assetsManager.load(AssetMusic.class);
-		assetsManager.load(AssetTextures.class);
+//		assetsManager.load(AssetMusic.class);
+//		assetsManager.load(AssetSounds.class);
+//		assetsManager.load(AssetTextures.class);
 		// assetsManager.load(AssetParticles.class);
+		
+		assetsManager.load(AssetMusic.music, Music.class);
+		
+		assetsManager.load(AssetSounds.bike, Sound.class);
+		assetsManager.load(AssetSounds.brake, Sound.class);
+		assetsManager.load(AssetSounds.hit, Sound.class);
+		assetsManager.load(AssetSounds.jump, Sound.class);
+		assetsManager.load(AssetSounds.squish, Sound.class);
+
+		assetsManager.load(AssetTextures.skin, Skin.class, AssetTextures.skinParameter);
 	}
 
 	public void onFinishLoading() {

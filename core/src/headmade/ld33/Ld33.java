@@ -1,13 +1,13 @@
 package headmade.ld33;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-
 import headmade.ld33.assets.Assets;
 import headmade.ld33.screens.IntroScreen;
 import headmade.ld33.screens.transitions.ScreenTransition;
 import headmade.ld33.screens.transitions.ScreenTransitionFade;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Ld33 extends DirectedGame {
 

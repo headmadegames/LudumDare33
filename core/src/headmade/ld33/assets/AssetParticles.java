@@ -1,10 +1,10 @@
 package headmade.ld33.assets;
 
+import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
+
 import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.ParticleEffectLoader.ParticleEffectParameter;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter.Particle;
-
-import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
 
 public class AssetParticles {
 	private static final String TAG = AssetParticles.class.getName();
@@ -21,7 +21,7 @@ public class AssetParticles {
 	}
 
 	//	@formatter:off
-	@Asset(Particle.class)
+//	@Asset(Particle.class)
 	public static final String
 	sound1		= PARTICLES_PATH + "smoke.fx";
 //	sound2		= SOUNDS_PATH + "sound2.wav";

@@ -1,9 +1,9 @@
 package headmade.ld33.screens;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-
 import headmade.ld33.DirectedGame;
 import headmade.ld33.assets.Assets;
+
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class WinScreen extends StageScreen {
 

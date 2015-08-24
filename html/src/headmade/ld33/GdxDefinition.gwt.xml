@@ -7,8 +7,10 @@
 	<inherits name='com.badlogic.ashley_gwt' />
 	<inherits name='com.badlogic.gdx.ai' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
+	<!-- 
 	<inherits name='com.kotcrab.vis.vis-ui' />
 	<inherits name='com.kotcrab.vis.vis-runtime' />
+	 -->
 	<inherits name='libgdx-utils' />
 	<inherits name='libgdx-utils-box2d' />
 
@@ -16,4 +18,5 @@
 	<entry-point class='headmade.ld33.client.HtmlLauncher' />
 	
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
+<!-- 	<extend-configuration-property name="gdx.reflect.include" value="headmade.ld33.assets" /> -->
 </module>

@@ -1,12 +1,5 @@
 package headmade.ld33.screens;
 
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-
 import headmade.ld33.DirectedGame;
 import headmade.ld33.actions.ActionFactory;
 import headmade.ld33.actors.CreditsActor;
@@ -17,6 +10,13 @@ import headmade.ld33.assets.AssetMusic;
 import headmade.ld33.assets.Assets;
 import headmade.ld33.screens.transitions.ScreenTransition;
 import headmade.ld33.screens.transitions.ScreenTransitionFade;
+
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MenuScreen extends StageScreen {
 	private static final String	TAG	= MenuScreen.class.getName();

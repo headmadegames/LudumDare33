@@ -1,10 +1,10 @@
 package headmade.ld33.assets;
 
+import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
+
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
 
 public class AssetTextures {
 
@@ -28,13 +28,13 @@ public class AssetTextures {
 //	@Asset(value = TextureAtlas.class)
 //	public static final String atlas = Assets.GAME_ATLAS;
 
-	private static final SkinParameter skinParameter = new SkinLoader.SkinParameter(Assets.GAME_ATLAS);
+	public static final SkinParameter skinParameter = new SkinLoader.SkinParameter(Assets.GAME_ATLAS);
 	//    static {
 	//		// init Skin
 	//    	skinParameter.
 	//	}
 
-	@Asset(value = Skin.class, params = "skinParameter")
+//	@Asset(value = Skin.class, params = "skinParameter")
 	public static final String
 	skin = Assets.PACKS_BASE + Assets.PACK + ".json";
 

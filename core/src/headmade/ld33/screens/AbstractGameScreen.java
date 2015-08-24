@@ -1,5 +1,7 @@
 package headmade.ld33.screens;
 
+import headmade.ld33.DirectedGame;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
@@ -8,8 +10,6 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import headmade.ld33.DirectedGame;
 
 public abstract class AbstractGameScreen extends InputAdapter implements Screen {
 

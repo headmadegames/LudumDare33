@@ -1,5 +1,10 @@
 package headmade.ld33.screens;
 
+import headmade.ld33.DirectedGame;
+import headmade.ld33.assets.Assets;
+import headmade.ld33.screens.transitions.ScreenTransition;
+import headmade.ld33.screens.transitions.ScreenTransitionFade;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,18 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.kotcrab.vis.ui.widget.VisProgressBar;
-
-import headmade.ld33.DirectedGame;
-import headmade.ld33.assets.Assets;
-import headmade.ld33.screens.transitions.ScreenTransition;
-import headmade.ld33.screens.transitions.ScreenTransitionFade;
+//import com.kotcrab.vis.ui.widget.VisProgressBar;
 
 public class IntroScreen extends StageScreen {
 
 	private static final String TAG = IntroScreen.class.getName();
 
-	private final VisProgressBar progress;
+//	private final VisProgressBar progress;
 
 	private final Cell bottomCell;
 
@@ -37,11 +37,12 @@ public class IntroScreen extends StageScreen {
 		// logo.setOrigin(logo.getWidth() / 2, logo.getHeight() / 2);
 		// logo.scaleBy(2f);
 		logo.setColor(Color.BLACK);
-		progress = new VisProgressBar(0, 1, 0.01f, false);
+//		progress = new VisProgressBar(0, 1, 0.01f, false);
 
 		rootTable.add(logo).center().expand();
 		rootTable.row();
-		bottomCell = rootTable.add(progress);
+//		bottomCell = rootTable.add(progress);
+		bottomCell = rootTable.add();
 
 		bottomCell.center().pad(10f);
 
@@ -56,7 +57,7 @@ public class IntroScreen extends StageScreen {
 		super.preDraw(delta);
 
 		Assets.assetsManager.update();
-		progress.setValue(Assets.assetsManager.getProgress());
+//		progress.setValue(Assets.assetsManager.getProgress());
 		if (MathUtils.isEqual(1, Assets.assetsManager.getProgress())) {
 			// done loading eh
 			Assets.instance.onFinishLoading();

@@ -1,15 +1,15 @@
 package headmade.ld33;
 
+import headmade.ld33.assets.AssetSounds;
+import headmade.ld33.assets.Assets;
+import headmade.ld33.screens.PlayScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
-
-import headmade.ld33.assets.AssetSounds;
-import headmade.ld33.assets.Assets;
-import headmade.ld33.screens.PlayScreen;
 
 public class PlayContactListener implements ContactListener {
 	private static final String TAG = PlayContactListener.class.getName();

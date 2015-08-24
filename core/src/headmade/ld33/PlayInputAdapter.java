@@ -1,18 +1,15 @@
 package headmade.ld33;
 
+import headmade.ld33.assets.AssetSounds;
+import headmade.ld33.assets.Assets;
+import headmade.ld33.screens.PlayScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-
-import headmade.ld33.assets.AssetSounds;
-import headmade.ld33.assets.Assets;
-import headmade.ld33.screens.PlayScreen;
 
 public class PlayInputAdapter extends InputAdapter {
 
@@ -41,40 +38,17 @@ public class PlayInputAdapter extends InputAdapter {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.LEFT) {
+		if (keycode == Keys.A || keycode == Keys.LEFT) {
 			play.moveLeft = true;
 			return true;
-			// play.getCamera().translate(-1, 0, 0);
-			// play.getCamera().update();
-			// return true;
-		} else if (keycode == Keys.RIGHT) {
+		} else if (keycode == Keys.D || keycode == Keys.RIGHT) {
 			play.moveRight = true;
 			return true;
-			// play.getCamera().translate(1, 0, 0);
-			// play.getCamera().update();
-			// return true;
-		} else if (keycode == Keys.DOWN) {
-			// play.getCamera().translate(0, -1, 0);
-			// play.getCamera().update();
-			brake();
-			return true;
-		} else if (keycode == Keys.UP) {
-			Gdx.app.log(TAG, "Pos: " + play.wheel.getPosition());
-			jump();
-			// play.getCamera().translate(0, 1, 0);
-			// play.getCamera().update();
-			// return true;
-		} else if (keycode == Keys.A) {
-			play.moveLeft = true;
-			return true;
-		} else if (keycode == Keys.D) {
-			play.moveRight = true;
-			return true;
-		} else if (keycode == Keys.W) {
+		} else if (keycode == Keys.W || keycode == Keys.UP) {
 			Gdx.app.log(TAG, "Pos: " + play.wheel.getPosition());
 			jump();
 			return true;
-		} else if (keycode == Keys.S) {
+		} else if (keycode == Keys.S || keycode == Keys.DOWN) {
 			brake();
 			return true;
 		}
@@ -83,10 +57,10 @@ public class PlayInputAdapter extends InputAdapter {
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if (keycode == Keys.A) {
+		if (keycode == Keys.A || keycode == Keys.LEFT) {
 			play.moveLeft = false;
 			return true;
-		} else if (keycode == Keys.D) {
+		} else if (keycode == Keys.D || keycode == Keys.RIGHT) {
 			play.moveRight = false;
 			return true;
 		}

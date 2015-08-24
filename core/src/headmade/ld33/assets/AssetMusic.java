@@ -1,8 +1,8 @@
 package headmade.ld33.assets;
 
-import com.badlogic.gdx.audio.Music;
-
 import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
+
+import com.badlogic.gdx.audio.Music;
 
 public class AssetMusic {
 	private static final String TAG = AssetMusic.class.getName();

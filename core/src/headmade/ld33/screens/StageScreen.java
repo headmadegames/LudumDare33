@@ -1,11 +1,11 @@
 package headmade.ld33.screens;
 
+import headmade.ld33.DirectedGame;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
-import headmade.ld33.DirectedGame;
 
 public class StageScreen extends AbstractGameScreen {
 

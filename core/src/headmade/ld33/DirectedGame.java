@@ -1,13 +1,13 @@
 package headmade.ld33;
 
+import headmade.ld33.screens.AbstractGameScreen;
+import headmade.ld33.screens.transitions.ScreenTransition;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-
-import headmade.ld33.screens.AbstractGameScreen;
-import headmade.ld33.screens.transitions.ScreenTransition;
 
 public abstract class DirectedGame extends Game {
 	private static final String TAG = DirectedGame.class.getName();
