@@ -19,6 +19,7 @@ import net.dermetfan.gdx.physics.box2d.Chain.Builder;
 import net.dermetfan.gdx.physics.box2d.Chain.Connection;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -555,25 +556,49 @@ public class PlayScreen extends AbstractGameScreen {
 
 			// mouseJoint.setTarget(monsterBody.getPosition());
 			final float volume = MathUtils.clamp(wheel.getLinearVelocity().len() / 20f, 0.0f, 0.1f);
-			if (moveLeft) {
-				wheelJoint.enableMotor(true);
-				if (wheelJoint.getMotorSpeed() < 0) {
-					if (volume > 0.05f) {
-						// Assets.instance.playSound(AssetSounds.brake, volume);
+			
+			if ( Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer)) {
+			    float accelY = Gdx.input.getAccelerometerY();
+			    float accelZ = Gdx.input.getAccelerometerZ();
+
+			    if (accelY >= 0) {
+				    if (wheelJoint.getMotorSpeed() > 0) {
+						wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY/20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					} else {
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
 					}
-					wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
+				} else if (accelY <= 0) {
+				    if (wheelJoint.getMotorSpeed() < 0) {
+				    	wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY/20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					} else {
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
+					}
 				} else {
-					wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					
 				}
-			} else if (moveRight) {
-				wheelJoint.enableMotor(true);
-				if (wheelJoint.getMotorSpeed() > 0) {
-					if (volume > 0.5f) {
-						// Assets.instance.playSound(AssetSounds.brake, volume);
+				wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY/20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+			} else {
+				
+				if (moveLeft) {
+					wheelJoint.enableMotor(true);
+					if (wheelJoint.getMotorSpeed() < 0) {
+						if (volume > 0.05f) {
+							// Assets.instance.playSound(AssetSounds.brake, volume);
+						}
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
+					} else {
+						wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
 					}
-					wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
-				} else {
-					wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() - 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+				} else if (moveRight) {
+					wheelJoint.enableMotor(true);
+					if (wheelJoint.getMotorSpeed() > 0) {
+						if (volume > 0.5f) {
+							// Assets.instance.playSound(AssetSounds.brake, volume);
+						}
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
+					} else {
+						wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() - 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					}
 				}
 			}
 		}

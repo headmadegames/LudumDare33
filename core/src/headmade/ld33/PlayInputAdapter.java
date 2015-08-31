@@ -4,6 +4,7 @@ import headmade.ld33.assets.AssetSounds;
 import headmade.ld33.assets.Assets;
 import headmade.ld33.screens.PlayScreen;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
@@ -85,6 +86,9 @@ public class PlayInputAdapter extends InputAdapter {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if (Gdx.app.getType() == ApplicationType.Android || Gdx.app.getType() == ApplicationType.iOS) {
+			jump();
+		}
 		if (button == Buttons.LEFT) {
 //			play.throwTomato(screenX, screenY);
 			// } else {
