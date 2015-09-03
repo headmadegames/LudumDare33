@@ -142,7 +142,7 @@ public class PlayScreen extends AbstractGameScreen {
 
 		// Shader
 		rayHandler = new RayHandler(world);
-		rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.4f);
+		rayHandler.setAmbientLight(0.1f, 0.1f, 0.2f, 0.3f);
 		rayHandler.setBlurNum(3);
 		rayHandler.diffuseBlendFunc.set(GL20.GL_DST_COLOR, GL20.GL_SRC_COLOR);
 		// RayHandler.setGammaCorrection(true);
@@ -385,7 +385,7 @@ public class PlayScreen extends AbstractGameScreen {
 				LIGHT_DISTANCE, x, y, 270f, 35);// MathUtils.random(30f, 50f));
 		// light2.attachToBody(groundBody, 0.5f, 5, 270);
 		light.setSoftnessLength(2.5f);
-		light.setColor(1f, 0.9f, 0.9f, 1.7f);
+		light.setColor(1f, 0.8f, 0.7f, 1.0f);
 		lights.add(light);
 	}
 
@@ -551,7 +551,7 @@ public class PlayScreen extends AbstractGameScreen {
 					* (16f / (Math.abs(diffVec.x)));
 			light.setDistance(MathUtils.clamp(distance, 0, LIGHT_DISTANCE * 3));
 			// - (LIGHT_DISTANCE / (0.3f * diffVec.len())));
-			light.setSoftnessLength(3.5f);
+			light.setSoftnessLength(6.5f);
 		}
 
 		if (resetPlay) {
