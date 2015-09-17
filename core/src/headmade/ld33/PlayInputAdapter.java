@@ -30,7 +30,8 @@ public class PlayInputAdapter extends InputAdapter {
 			final Vector2 force = play.wheelJoint.getLocalAxisA().cpy();
 			play.monsterBody.applyForceToCenter(force.scl(400f), true);
 
-			final Vector2 force2 = play.monsterBody.getPosition().cpy().sub(play.wheel.getPosition()).scl(4f);
+			final Vector2 force2 = play.monsterBody.getPosition().cpy()
+					.sub(play.wheel.getPosition()).scl(4f);
 			play.wheel.applyForceToCenter(force2.scl(100f), true);
 
 			Assets.instance.playSound(AssetSounds.jump);
@@ -70,7 +71,8 @@ public class PlayInputAdapter extends InputAdapter {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		final Vector3 target3 = play.getCamera().unproject(new Vector3(screenX, screenY, 0f));
+		final Vector3 target3 = play.getCamera().unproject(
+				new Vector3(screenX, screenY, 0f));
 		play.mouseTarget.x = target3.x;
 		play.mouseTarget.y = target3.y;
 		// play.mouseJoint.setTarget(play.mouseTarget);
@@ -79,18 +81,21 @@ public class PlayInputAdapter extends InputAdapter {
 
 	@Override
 	public boolean scrolled(int amount) {
-//		((OrthographicCamera) play.getCamera()).zoom = MathUtils.clamp(((OrthographicCamera) play.getCamera()).zoom + amount, 1, 10);
-//		play.getCamera().update();
+		// ((OrthographicCamera) play.getCamera()).zoom =
+		// MathUtils.clamp(((OrthographicCamera) play.getCamera()).zoom +
+		// amount, 1, 10);
+		// play.getCamera().update();
 		return true;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (Gdx.app.getType() == ApplicationType.Android || Gdx.app.getType() == ApplicationType.iOS) {
+		if (Gdx.app.getType() == ApplicationType.Android
+				|| Gdx.app.getType() == ApplicationType.iOS) {
 			jump();
 		}
 		if (button == Buttons.LEFT) {
-//			play.throwTomato(screenX, screenY);
+			play.throwTomato(screenX, screenY);
 			// } else {
 			// play.touchMode = play.TOUCHMODE_DRAG;
 			// play.fail();
@@ -118,15 +123,19 @@ public class PlayInputAdapter extends InputAdapter {
 			play.getCamera().translate(delta.scl(0.01f, -0.01f, 1f));
 			play.getCamera().update();
 			// } else if (play.touchMode == play.TOUCHMODE_PULL) {
-			// final Vector3 worldLastTouchdown = play.getCamera().unproject(play.lastTouchDown);
-			// Gdx.app.log(TAG, "Query " + worldLastTouchdown.x + ", " + worldLastTouchdown.y);
+			// final Vector3 worldLastTouchdown =
+			// play.getCamera().unproject(play.lastTouchDown);
+			// Gdx.app.log(TAG, "Query " + worldLastTouchdown.x + ", " +
+			// worldLastTouchdown.y);
 			// play.world.QueryAABB(new QueryCallback() {
 			// @Override
 			// public boolean reportFixture(Fixture fixture) {
-			// fixture.getBody().applyForceToCenter(new Vector2(-delta.x, delta.y).nor().scl(50), true);
+			// fixture.getBody().applyForceToCenter(new Vector2(-delta.x,
+			// delta.y).nor().scl(50), true);
 			// return false;
 			// }
-			// }, worldLastTouchdown.x - .001f, worldLastTouchdown.y - .001f, worldLastTouchdown.x + .001f, worldLastTouchdown.y + .001f);
+			// }, worldLastTouchdown.x - .001f, worldLastTouchdown.y - .001f,
+			// worldLastTouchdown.x + .001f, worldLastTouchdown.y + .001f);
 		}
 		play.lastTouchDown = newTouchDown;
 		return true;

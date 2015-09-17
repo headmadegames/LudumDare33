@@ -16,13 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
 //import com.kotcrab.vis.ui.widget.VisProgressBar;
 
 public class IntroScreen extends StageScreen {
 
 	private static final String TAG = IntroScreen.class.getName();
 
-//	private final VisProgressBar progress;
+	// private final VisProgressBar progress;
 
 	private final Cell bottomCell;
 
@@ -33,15 +34,16 @@ public class IntroScreen extends StageScreen {
 
 		rootTable = new Table();
 		rootTable.setFillParent(true);
-		final Actor logo = new Image(Assets.assetsManager.get(Assets.HEADMADE_LOGO, Texture.class));
+		final Actor logo = new Image(Assets.assetsManager.get(
+				Assets.HEADMADE_LOGO, Texture.class));
 		// logo.setOrigin(logo.getWidth() / 2, logo.getHeight() / 2);
 		// logo.scaleBy(2f);
 		logo.setColor(Color.BLACK);
-//		progress = new VisProgressBar(0, 1, 0.01f, false);
+		// progress = new VisProgressBar(0, 1, 0.01f, false);
 
 		rootTable.add(logo).center().expand();
 		rootTable.row();
-//		bottomCell = rootTable.add(progress);
+		// bottomCell = rootTable.add(progress);
 		bottomCell = rootTable.add();
 
 		bottomCell.center().pad(10f);
@@ -57,16 +59,18 @@ public class IntroScreen extends StageScreen {
 		super.preDraw(delta);
 
 		Assets.assetsManager.update();
-//		progress.setValue(Assets.assetsManager.getProgress());
+		// progress.setValue(Assets.assetsManager.getProgress());
 		if (MathUtils.isEqual(1, Assets.assetsManager.getProgress())) {
 			// done loading eh
 			Assets.instance.onFinishLoading();
 
-			final TextButton startButton = new TextButton("Start", Assets.instance.skin);
+			final TextButton startButton = new TextButton("Start",
+					Assets.instance.skin);
 			startButton.addListener(new InputListener() {
 
 				@Override
-				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				public boolean touchDown(InputEvent event, float x, float y,
+						int pointer, int button) {
 					startGame();
 					return super.touchDown(event, x, y, pointer, button);
 				}
@@ -81,7 +85,7 @@ public class IntroScreen extends StageScreen {
 		Gdx.app.log(TAG, "Start Button clicked");
 
 		final ScreenTransition transition = ScreenTransitionFade.init(0.0f);
-		game.setScreen(new MenuScreen(game), transition);
-		// game.setScreen(new PlayScreen(game), transition);
+		// game.setScreen(new MenuScreen(game), transition);
+		game.setScreen(new PlayScreen(game), transition);
 	}
 }

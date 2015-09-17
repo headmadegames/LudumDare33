@@ -54,65 +54,64 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class PlayScreen extends AbstractGameScreen {
 
-	private static final int RAYS_NUM = 256;
-	private static final float LIGHT_DISTANCE = 12f;
-	private static final float MAX_MOTORSPEED = 28.0f;
-	private static final float WHEEL_RADIUS = 0.6f;
+	private static final int			RAYS_NUM				= 256;
+	private static final float			LIGHT_DISTANCE			= 12f;
+	private static final float			MAX_MOTORSPEED			= 28.0f;
+	private static final float			WHEEL_RADIUS			= 0.6f;
 
-	private static final String TAG = PlayScreen.class.getName();
+	private static final String			TAG						= PlayScreen.class.getName();
 
-	public static final String TOUCHMODE_PULL = "PULL";
-	public static final String TOUCHMODE_DRAG = "DRAG";
+	public static final String			TOUCHMODE_PULL			= "PULL";
+	public static final String			TOUCHMODE_DRAG			= "DRAG";
 
 	// protected float TARGET_SCREEN_WIDTH = Gdx.graphics.getWidth() / 32f;
 	// protected float TARGET_SCREEN_HEIGHT = Gdx.graphics.getHeight() / 32f;
-	protected float TARGET_SCREEN_WIDTH = 8;
-	protected float TARGET_SCREEN_HEIGHT = TARGET_SCREEN_WIDTH
-			* (Gdx.graphics.getWidth() / Gdx.graphics.getHeight());
+	protected float						TARGET_SCREEN_WIDTH		= 8;
+	protected float						TARGET_SCREEN_HEIGHT	= TARGET_SCREEN_WIDTH
+																		* (Gdx.graphics.getWidth() / Gdx.graphics.getHeight());
 
-	public final World world;
-	public Body monsterBody;
-	public Body wheel;
-	public Body groundBody;
-	public WheelJoint wheelJoint;
-	public MouseJoint mouseJoint;
-	public final Vector2 mouseTarget = new Vector2(TARGET_SCREEN_WIDTH / 2,
-			TARGET_SCREEN_HEIGHT / 2);
-	public Vector3 lastTouchDown;
+	public final World					world;
+	public Body							monsterBody;
+	public Body							wheel;
+	public Body							groundBody;
+	public WheelJoint					wheelJoint;
+	public MouseJoint					mouseJoint;
+	public final Vector2				mouseTarget				= new Vector2(TARGET_SCREEN_WIDTH / 2, TARGET_SCREEN_HEIGHT / 2);
+	public Vector3						lastTouchDown;
 
-	public String touchMode;
-	public boolean moveRight;
-	public boolean moveLeft;
-	public boolean cameraShake;
-	public boolean resetPlay;
-	public boolean showFail;
+	public String						touchMode;
+	public boolean						moveRight;
+	public boolean						moveLeft;
+	public boolean						cameraShake;
+	public boolean						resetPlay;
+	public boolean						showFail;
 
-	private boolean bikeBroken;
-	private float resetTimer = 0f;
+	private boolean						bikeBroken;
+	private float						resetTimer				= 0f;
 
-	private final InputProcessor inputProcessor;
+	private final InputProcessor		inputProcessor;
 
-	private final Box2DSprite tomatoSprite;
-	private final Box2DSprite boardSprite;
-	private final Box2DSprite rockerSprite;
-	private final ParticleEffect tomatoEffect;
-	private final ParticleEffect smokeEffect;
-	private final TiledDrawable background;
-	private final TiledDrawable lowerBackground;
-	private final Array<PooledEffect> effects = new Array();
-	private final ParticleEffectPool tomatoEffectPool;
+	private final Box2DSprite			tomatoSprite;
+	private final Box2DSprite			boardSprite;
+	private final Box2DSprite			rockerSprite;
+	private final ParticleEffect		tomatoEffect;
+	private final ParticleEffect		smokeEffect;
+	private final TiledDrawable			background;
+	private final TiledDrawable			lowerBackground;
+	private final Array<PooledEffect>	effects					= new Array();
+	private final ParticleEffectPool	tomatoEffectPool;
 	// private final ParticleEffectPool smokeEffectPool;
-	private final TextureRegion bikeTexture;
-	private final Array<Body> toBeDestroyedBodies = new Array<Body>();
-	private float accumDelta;
-	private final float bikeHeight;
-	private boolean createTomato;
-	private int throwTomatoX;
-	private int throwTomatoY;
-	private final Random random;
-	private final Array<Body> tomatoes = new Array<Body>();
-	private RayHandler rayHandler;
-	private Array<ConeLight> lights = new Array<ConeLight>();
+	private final TextureRegion			bikeTexture;
+	private final Array<Body>			toBeDestroyedBodies		= new Array<Body>();
+	private float						accumDelta;
+	private final float					bikeHeight;
+	private boolean						createTomato;
+	private int							throwTomatoX;
+	private int							throwTomatoY;
+	private final Random				random;
+	private final Array<Body>			tomatoes				= new Array<Body>();
+	private final RayHandler			rayHandler;
+	private final Array<ConeLight>		lights					= new Array<ConeLight>();
 
 	public PlayScreen(DirectedGame game) {
 		super();
@@ -124,11 +123,8 @@ public class PlayScreen extends AbstractGameScreen {
 			camera = new OrthographicCamera();
 		}
 		if (viewport == null) {
-			Gdx.app.log(TAG, "New x viewport with width: "
-					+ TARGET_SCREEN_WIDTH + " and height: "
-					+ TARGET_SCREEN_HEIGHT);
-			viewport = new ExtendViewport(TARGET_SCREEN_WIDTH,
-					TARGET_SCREEN_HEIGHT, camera);
+			Gdx.app.log(TAG, "New x viewport with width: " + TARGET_SCREEN_WIDTH + " and height: " + TARGET_SCREEN_HEIGHT);
+			viewport = new ExtendViewport(TARGET_SCREEN_WIDTH, TARGET_SCREEN_HEIGHT, camera);
 		}
 		viewport.apply();
 		Gdx.input.setCatchBackKey(false);
@@ -150,16 +146,12 @@ public class PlayScreen extends AbstractGameScreen {
 		// rayHandler.setBlur(false);
 		/** BOX2D LIGHT STUFF END */
 
-		tomatoSprite = new Box2DSprite(
-				Assets.instance.atlas.findRegion(AssetTextures.TOMATO));
-		boardSprite = new Box2DSprite(
-				Assets.instance.atlas.findRegion(AssetTextures.BOARD));
-		rockerSprite = new Box2DSprite(
-				Assets.instance.atlas.findRegion(AssetTextures.ROCKER));
+		tomatoSprite = new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.TOMATO));
+		boardSprite = new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.BOARD));
+		rockerSprite = new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.ROCKER));
 
 		createPlayer(8, 1);
-		final Vector2 diffVec = monsterBody.getWorldCenter().cpy()
-				.sub(wheel.getWorldCenter());
+		final Vector2 diffVec = monsterBody.getWorldCenter().cpy().sub(wheel.getWorldCenter());
 		bikeHeight = diffVec.len() - WHEEL_RADIUS / 2;
 		createLevel(0, 0);
 
@@ -167,19 +159,15 @@ public class PlayScreen extends AbstractGameScreen {
 		world.setContactListener(contactListener);
 
 		smokeEffect = new ParticleEffect();
-		smokeEffect.load(Gdx.files.internal("particles/smoke.fx"),
-				Assets.instance.atlas);
+		smokeEffect.load(Gdx.files.internal("particles/smoke.fx"), Assets.instance.atlas);
 		// smokeEffectPool = new ParticleEffectPool(smokeEffect, 2, 4);
 
 		tomatoEffect = new ParticleEffect();
-		tomatoEffect.load(Gdx.files.internal("particles/tomato.fx"),
-				Assets.instance.atlas);
+		tomatoEffect.load(Gdx.files.internal("particles/tomato.fx"), Assets.instance.atlas);
 		tomatoEffectPool = new ParticleEffectPool(tomatoEffect, 2, 8);
 
-		background = new TiledDrawable(
-				Assets.instance.atlas.findRegion(AssetTextures.TENT));
-		lowerBackground = new TiledDrawable(
-				Assets.instance.atlas.findRegion(AssetTextures.TENTFLOOR));
+		background = new TiledDrawable(Assets.instance.atlas.findRegion(AssetTextures.TENT));
+		lowerBackground = new TiledDrawable(Assets.instance.atlas.findRegion(AssetTextures.TENTFLOOR));
 		bikeTexture = Assets.instance.atlas.findRegion(AssetTextures.BIKE);
 
 	}
@@ -212,34 +200,27 @@ public class PlayScreen extends AbstractGameScreen {
 		batch.begin();
 		Gdx.gl.glClearColor(0.2f, 0.15f, 0.1f, 1f);
 		// Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT
-				| GL20.GL_DEPTH_BUFFER_BIT
-				| (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV
-						: 0));
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT
+				| (Gdx.graphics.getBufferFormat().coverageSampling ? GL20.GL_COVERAGE_BUFFER_BIT_NV : 0));
 
 		// lowerBackground.draw(batch, -200, -5f, 1000, 10);
 		background.draw(batch, -200, 0, 1000, 5);
 		// lowerBackground.draw(batch, 0, 0, 0, 0, 3.2f, 3.2f, 10f, 1f, 0);
 
 		{// bike
-			final Vector2 diffVec = monsterBody.getWorldCenter().cpy()
-					.sub(wheel.getWorldCenter());
+			final Vector2 diffVec = monsterBody.getWorldCenter().cpy().sub(wheel.getWorldCenter());
 			// final Vector2 posVec =
 			// wheel.getWorldCenter().cpy().add(diffVec.cpy().scl(0.5f));
 
-			final float width = bikeHeight
-					* (new Float(bikeTexture.getRegionWidth()) / new Float(
-							bikeTexture.getRegionHeight())) * 0.4f;
-			batch.draw(bikeTexture, wheel.getWorldCenter().x - width,
-					wheel.getWorldCenter().y, width, 0, width * 2, bikeHeight,
-					1f, 1f, diffVec.angle() - 90);
+			final float width = bikeHeight * (new Float(bikeTexture.getRegionWidth()) / new Float(bikeTexture.getRegionHeight())) * 0.4f;
+			batch.draw(bikeTexture, wheel.getWorldCenter().x - width, wheel.getWorldCenter().y, width, 0, width * 2, bikeHeight, 1f, 1f,
+					diffVec.angle() - 90);
 		}
 
 		Box2DSprite.draw(((Ld33) game).batch, world);
 
 		{// particles
-			final float newA = MathUtils.clamp(
-					wheel.getLinearVelocity().len() / 10f, 0.1f, 1f);
+			final float newA = MathUtils.clamp(wheel.getLinearVelocity().len() / 10f, 0.1f, 1f);
 			if (newA > 0.3f) {
 				if (accumDelta > 0) {
 					smokeEffect.reset();
@@ -260,9 +241,9 @@ public class PlayScreen extends AbstractGameScreen {
 			}
 		}
 
-		rayHandler.setCombinedMatrix((OrthographicCamera) camera);
-
 		batch.end();
+
+		rayHandler.setCombinedMatrix((OrthographicCamera) camera);
 		rayHandler.updateAndRender();
 
 		// ((Ld33) game).box2dDebugRenderer.render(world, camera.combined);
@@ -293,17 +274,16 @@ public class PlayScreen extends AbstractGameScreen {
 		createTomato = true;
 	}
 
-	private Chain createBridge(final int x1, final int y1, final int x2,
-			final int y2) {
+	private Chain createBridge(final int x1, final int y1, final int x2, final int y2) {
 		final PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.5f, 0.05f);
-		final int bridgeWidth = x2 - x1;
+		final int bridgeWidth = 0; // x2 - x1
 
 		final Builder builder = new Builder() {
 
-			BodyDef bodyDef = new BodyDef();
-			FixtureDef fixtureDef = new FixtureDef();
-			RevoluteJointDef jointDef = new RevoluteJointDef();
+			BodyDef				bodyDef		= new BodyDef();
+			FixtureDef			fixtureDef	= new FixtureDef();
+			RevoluteJointDef	jointDef	= new RevoluteJointDef();
 
 			{ // constructor
 				bodyDef.type = BodyType.DynamicBody;
@@ -316,17 +296,17 @@ public class PlayScreen extends AbstractGameScreen {
 			}
 
 			@Override
-			public Connection createConnection(Body seg1, int seg1index,
-					Body seg2, int seg2index) {
+			public Connection createConnection(Body seg1, int seg1index, Body seg2, int seg2index) {
 				jointDef.bodyA = seg1;
-				jointDef.bodyB = seg2;
+				jointDef.bodyB = groundBody;
 				return new Connection(world.createJoint(jointDef));
 			}
 
 			@Override
 			public Body createSegment(int index, int length, Chain chain) {
-				bodyDef.position.set(x1 + index, y1 + index * (y2 - y1)
-						/ length);
+				bodyDef.position.set(x1 + index, y1 + index * (y2 - y1));
+				Gdx.app.log(TAG, "bodyDef " + bodyDef.position);
+
 				final Body segment = world.createBody(bodyDef);
 				final Fixture fix = segment.createFixture(fixtureDef);
 				fix.setUserData(boardSprite);
@@ -336,7 +316,10 @@ public class PlayScreen extends AbstractGameScreen {
 
 		};
 
-		final Chain chain = new Chain(bridgeWidth - 1, builder);
+		final Chain chain = new Chain(bridgeWidth, builder);
+
+		chain.extend(x2 - x1 - 1);
+
 		shape.dispose();
 
 		return chain;
@@ -367,8 +350,9 @@ public class PlayScreen extends AbstractGameScreen {
 		// createRamp(12, 1, 3, 1.5f, 0);
 		// createBridge(0, 0, 0, 0);
 		// createRamp(0, 0, 2, 0.5f, 0);
-		// createBridge(2, 1, 6, 1);
-		createRamp(14, 0f, 2, 0.25f, 0);
+		createBridge(2, 1, 6, 1);
+
+		// createRamp(14, 0f, 2, 0.25f, 0);
 		createRocker(24, 0, 3, 0.3f);
 		createRamp(36, 0f, 2, 0.4f, 0);
 		createRocker(48, 0, 6, 0.6f);
@@ -381,8 +365,7 @@ public class PlayScreen extends AbstractGameScreen {
 	}
 
 	private void createLight(float x, float y) {
-		ConeLight light = new ConeLight(rayHandler, RAYS_NUM, null,
-				LIGHT_DISTANCE, x, y, 270f, 35);// MathUtils.random(30f, 50f));
+		final ConeLight light = new ConeLight(rayHandler, RAYS_NUM, null, LIGHT_DISTANCE, x, y, 270f, 35);// MathUtils.random(30f, 50f));
 		// light2.attachToBody(groundBody, 0.5f, 5, 270);
 		light.setSoftnessLength(2.5f);
 		light.setColor(1f, 0.8f, 0.7f, 1.0f);
@@ -404,12 +387,10 @@ public class PlayScreen extends AbstractGameScreen {
 		bd.type = BodyType.DynamicBody;
 		bd.position.set(x + 0.0f, y + 0.5f);
 		monsterBody = world.createBody(bd);
-		final Fixture monsterFixture = monsterBody.createFixture(monsterShape,
-				1f);
+		final Fixture monsterFixture = monsterBody.createFixture(monsterShape, 1f);
 		monsterFixture.setRestitution(0.7f);
 
-		final Box2DSprite monsterSprite = new Box2DSprite(
-				Assets.instance.atlas.findRegion(AssetTextures.MONSTER));
+		final Box2DSprite monsterSprite = new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.MONSTER));
 		monsterBody.setUserData(monsterSprite);
 		monsterFixture.setUserData(monsterSprite);
 
@@ -424,10 +405,8 @@ public class PlayScreen extends AbstractGameScreen {
 		wheel = world.createBody(bd);
 		final Fixture wheelFixture = wheel.createFixture(fd);
 
-		final Box2DSprite wheelSprite = new Box2DSprite(
-				Assets.instance.atlas.findRegion(AssetTextures.WHEEEL));
-		wheel.setUserData(new Box2DSprite(Assets.instance.atlas
-				.findRegion(AssetTextures.WHEEEL)));
+		final Box2DSprite wheelSprite = new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.WHEEEL));
+		wheel.setUserData(new Box2DSprite(Assets.instance.atlas.findRegion(AssetTextures.WHEEEL)));
 		wheelFixture.setUserData(wheelSprite);
 		// monsterBody.setUserData(new Box2DSprite(texture));
 		// monsterFixture.setUserData(new Box2DSprite(texture));
@@ -479,12 +458,10 @@ public class PlayScreen extends AbstractGameScreen {
 		monsterShape.dispose();
 	}
 
-	private void createRamp(float x, float y, float width, float height,
-			float angle) {
+	private void createRamp(float x, float y, float width, float height, float angle) {
 		final PolygonShape shape = new PolygonShape();
 		// Math.toDegrees(1.0 / Math.tan(height / width));
-		shape.setAsBox(width / 2, height / 2,
-				new Vector2(width / 2, height / 2), 0);
+		shape.setAsBox(width / 2, height / 2, new Vector2(width / 2, height / 2), 0);
 
 		final BodyDef bd = new BodyDef();
 		bd.type = BodyType.StaticBody;
@@ -503,8 +480,7 @@ public class PlayScreen extends AbstractGameScreen {
 	private void createRocker(float x, float y, float width, float height) {
 		{ // board
 			final PolygonShape shape = new PolygonShape();
-			shape.setAsBox(width / 2, 0.1f, new Vector2(width / 2, height / 2),
-					0);
+			shape.setAsBox(width / 2, 0.1f, new Vector2(width / 2, height / 2), 0);
 
 			final BodyDef bd = new BodyDef();
 			bd.type = BodyType.DynamicBody;
@@ -521,8 +497,7 @@ public class PlayScreen extends AbstractGameScreen {
 
 		{ // rocker
 			final PolygonShape rockerShape = new PolygonShape();
-			final Vector2[] vertices = { new Vector2(-width / 10f, y),
-					new Vector2(width / 10f, y), new Vector2(0, y + height) };
+			final Vector2[] vertices = { new Vector2(-width / 10f, y), new Vector2(width / 10f, y), new Vector2(0, y + height) };
 			rockerShape.set(vertices);
 			final BodyDef bd = new BodyDef();
 			bd.type = BodyType.DynamicBody;
@@ -540,25 +515,24 @@ public class PlayScreen extends AbstractGameScreen {
 
 		world.step(1 / 60f, 8, 3);
 
-		for (ConeLight light : lights) {
+		for (final ConeLight light : lights) {
 			// Vector2 diffVec = monsterBody.getWorldCenter().cpy()
-			Vector2 diffVec = monsterBody.getPosition().cpy()
-					.sub(light.getPosition());
+			final Vector2 diffVec = monsterBody.getPosition().cpy().sub(light.getPosition());
 			light.setDirection(diffVec.angle());
 			// light.setConeDegree(65f - (65f * (1 / diffVec.len())));
 			light.setConeDegree(20);
-			float distance = LIGHT_DISTANCE / 2f
-					* (16f / (Math.abs(diffVec.x)));
+			final float distance = LIGHT_DISTANCE / 2f * (16f / (Math.abs(diffVec.x)));
 			light.setDistance(MathUtils.clamp(distance, 0, LIGHT_DISTANCE * 3));
 			// - (LIGHT_DISTANCE / (0.3f * diffVec.len())));
 			light.setSoftnessLength(6.5f);
 		}
 
 		if (resetPlay) {
-			for (final Body body : tomatoes) {
-				world.destroyBody(body);
-			}
-			tomatoes.clear();
+			// for (final Body body : tomatoes) {
+			// Box2DUtils.destroyFixtures(body);
+			// world.destroyBody(body);
+			// }
+			// tomatoes.clear();
 
 			final Array<JointEdge> list = monsterBody.getJointList();
 			for (final JointEdge item : list) {
@@ -571,8 +545,10 @@ public class PlayScreen extends AbstractGameScreen {
 		}
 		if (showFail) {
 			if (resetTimer > 0.9f && toBeDestroyedBodies.size > 0) {
+				Box2DUtils.destroyFixtures(monsterBody);
 				world.destroyBody(monsterBody);
 				for (final Body body : toBeDestroyedBodies) {
+					Box2DUtils.destroyFixtures(body);
 					world.destroyBody(body);
 				}
 				toBeDestroyedBodies.clear();
@@ -588,23 +564,21 @@ public class PlayScreen extends AbstractGameScreen {
 
 			if (monsterBody.getPosition().x > 100) {
 				// Win!
-				final ScreenTransition transition = ScreenTransitionFade
-						.init(0.5f);
+				final ScreenTransition transition = ScreenTransitionFade.init(0.5f);
 				game.setScreen(new WinScreen(game), transition);
 			}
 
 			final float speed = wheel.getLinearVelocity().len();
 			if (speed > 2) {
 				Assets.instance.bikeSound.resume(Assets.instance.bikeSoundId);
-				Assets.instance.bikeSound.setVolume(
-						Assets.instance.bikeSoundId,
-						MathUtils.clamp((speed - 5) / 10, 0f, 0.3f));
+				Assets.instance.bikeSound.setVolume(Assets.instance.bikeSoundId, MathUtils.clamp((speed - 5) / 10, 0f, 0.3f));
 			} else {
 				Assets.instance.bikeSound.pause(Assets.instance.bikeSoundId);
 			}
 
 			if (toBeDestroyedBodies.size > 0) {
 				for (final Body body : toBeDestroyedBodies) {
+					Box2DUtils.destroyFixtures(body);
 					world.destroyBody(body);
 				}
 				toBeDestroyedBodies.clear();
@@ -619,74 +593,61 @@ public class PlayScreen extends AbstractGameScreen {
 				tomatoDef.type = BodyType.DynamicBody;
 
 				createTomato = false;
-				final Vector3 target = camera.unproject(new Vector3(
-						throwTomatoX, throwTomatoY, 0));
-				tomatoDef.position.set(10, 2);
+				final Vector3 target = camera.unproject(new Vector3(throwTomatoX, throwTomatoY, 0));
+				tomatoDef.position.set(monsterBody.getPosition().x + 6, 2);
 				final Body tomato = world.createBody(tomatoDef);
 				final Fixture tomatoFix = tomato.createFixture(tomatoShape, 4);
 				tomatoFix.setFilterData(tomatoFilter);
 				tomato.setUserData(tomatoSprite);
+				tomatoFix.setDensity(0.01f);
 				tomatoFix.setUserData(tomatoSprite);
 
 				final Vector2 targetV2 = new Vector2(target.x, target.y);
-				tomato.applyLinearImpulse(tomatoDef.position.sub(targetV2),
-						tomato.getWorldCenter(), true);
+				tomato.applyLinearImpulse(targetV2.cpy().sub(tomatoDef.position), tomato.getWorldCenter(), true);
 				tomato.applyTorque(random.nextFloat() * 10, true);
 
 				tomatoShape.dispose();
 
-				tomatoes.add(tomato);
+				// tomatoes.add(tomato);
 			}
 
 			// smokeEffect.reset();
-			smokeEffect.setPosition(wheel.getPosition().x,
-					wheel.getPosition().y - WHEEL_RADIUS);
+			smokeEffect.setPosition(wheel.getPosition().x, wheel.getPosition().y - WHEEL_RADIUS);
 			// smokeEffect.scaleEffect(MathUtils.clamp(wheel.getLinearVelocity().len(),
 			// 0.1f, 10f));
 
-			camera.position.set(wheel.getPosition().x,
-					monsterBody.getPosition().y + WHEEL_RADIUS * 2, 0);
+			camera.position.set(wheel.getPosition().x, monsterBody.getPosition().y + WHEEL_RADIUS * 2, 0);
 			final Random random = new Random();
 			if (cameraShake) {
-				camera.translate(random.nextFloat() * 0.1f,
-						random.nextFloat() * 0.1f, 0);
+				camera.translate(random.nextFloat() * 0.1f, random.nextFloat() * 0.1f, 0);
 			}
 			camera.update();
 
 			// mouseJoint.setTarget(monsterBody.getPosition());
-			final float volume = MathUtils.clamp(wheel.getLinearVelocity()
-					.len() / 20f, 0.0f, 0.1f);
+			final float volume = MathUtils.clamp(wheel.getLinearVelocity().len() / 20f, 0.0f, 0.1f);
 
 			if (Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer)) {
-				float accelY = Gdx.input.getAccelerometerY();
-				float accelZ = Gdx.input.getAccelerometerZ();
+				final float accelY = Gdx.input.getAccelerometerY();
+				final float accelZ = Gdx.input.getAccelerometerZ();
 
 				if (accelY >= 0) {
 					if (wheelJoint.getMotorSpeed() > 0) {
-						wheelJoint.setMotorSpeed(MathUtils.clamp(
-								wheelJoint.getMotorSpeed() + accelY / 20f,
-								-MAX_MOTORSPEED, MAX_MOTORSPEED));
-					} else {
 						wheelJoint
-								.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint
-										.getMotorSpeed() * 0.7f : 0f);
+								.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY / 20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					} else {
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
 					}
 				} else if (accelY <= 0) {
 					if (wheelJoint.getMotorSpeed() < 0) {
-						wheelJoint.setMotorSpeed(MathUtils.clamp(
-								wheelJoint.getMotorSpeed() + accelY / 20f,
-								-MAX_MOTORSPEED, MAX_MOTORSPEED));
-					} else {
 						wheelJoint
-								.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint
-										.getMotorSpeed() * 0.7f : 0f);
+								.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY / 20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
+					} else {
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
 					}
 				} else {
 
 				}
-				wheelJoint.setMotorSpeed(MathUtils.clamp(
-						wheelJoint.getMotorSpeed() + accelY / 20f,
-						-MAX_MOTORSPEED, MAX_MOTORSPEED));
+				wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + accelY / 20f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
 			} else {
 
 				if (moveLeft) {
@@ -696,13 +657,9 @@ public class PlayScreen extends AbstractGameScreen {
 							// Assets.instance.playSound(AssetSounds.brake,
 							// volume);
 						}
-						wheelJoint
-								.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint
-										.getMotorSpeed() * 0.7f : 0f);
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() < -0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
 					} else {
-						wheelJoint.setMotorSpeed(MathUtils.clamp(
-								wheelJoint.getMotorSpeed() + 0.2f,
-								-MAX_MOTORSPEED, MAX_MOTORSPEED));
+						wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() + 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
 					}
 				} else if (moveRight) {
 					wheelJoint.enableMotor(true);
@@ -711,13 +668,9 @@ public class PlayScreen extends AbstractGameScreen {
 							// Assets.instance.playSound(AssetSounds.brake,
 							// volume);
 						}
-						wheelJoint
-								.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint
-										.getMotorSpeed() * 0.7f : 0f);
+						wheelJoint.setMotorSpeed(wheelJoint.getMotorSpeed() > 0.5 ? wheelJoint.getMotorSpeed() * 0.7f : 0f);
 					} else {
-						wheelJoint.setMotorSpeed(MathUtils.clamp(
-								wheelJoint.getMotorSpeed() - 0.2f,
-								-MAX_MOTORSPEED, MAX_MOTORSPEED));
+						wheelJoint.setMotorSpeed(MathUtils.clamp(wheelJoint.getMotorSpeed() - 0.2f, -MAX_MOTORSPEED, MAX_MOTORSPEED));
 					}
 				}
 			}
